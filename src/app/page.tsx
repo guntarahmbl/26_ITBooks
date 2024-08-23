@@ -9,10 +9,9 @@ import {redirect} from "next/navigation"
 export default function Home() {
   const { data:session } = useSession();
   console.log(session)
-  return (
-    <main className="flex h-screen flex-col items-center w-[80%]">
+  return ( <main className="flex h-screen flex-col items-center w-[80%]">
       <Link href="/catalog" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Catalog
+          Catalog
       </Link>
       {session ? (
         <div>
@@ -21,6 +20,7 @@ export default function Home() {
         </div>
       ):(
         <Signup />
+        
       )}
       
     </main>
