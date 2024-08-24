@@ -24,13 +24,13 @@ export default function Signup() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-[#EDDFD6] focus:outline-none"
+                className="w-full bg-cream focus:outline-none"
                 placeholder="Enter your email"
               />
             </div>
           </div>
 
-          <div id="button" className="w-[25%] h-10 rounded-lg mx-auto text-white bg-[#872D37] flex justify-center mt-8">
+          <div id="button" className="w-[25%] h-10 rounded-lg mx-auto text-white bg-deepBurgundy flex justify-center mt-8">
             <button type="submit" className="mx-auto my-auto font-medium">
               SIGN UP
             </button>
