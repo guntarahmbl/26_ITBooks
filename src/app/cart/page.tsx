@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { cart } from "@utils/cart";
 import { books } from "@utils/example";
+import Link from "next/link";
 
 type QuantityChipTypes = {
   quantity: number;
@@ -13,7 +14,12 @@ type QuantityChipTypes = {
   onChange: (newQuantity: number) => void;
 };
 
-const QuantityChip = ({ quantity, onIncrease, onDecrease, onChange }: QuantityChipTypes) => {
+const QuantityChip = ({
+  quantity,
+  onIncrease,
+  onDecrease,
+  onChange,
+}: QuantityChipTypes) => {
   return (
     <div className="flex w-fit items-center justify-center border rounded-sm text-[#872D37] bg-white border-black">
       <button onClick={onDecrease} className="text-lg font-bold px-2">
@@ -39,6 +45,7 @@ type CartListTypes = {
 
 const Cart = () => {
   const [cartList, setCartList] = useState<CartListTypes[]>(cart);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const getBookDetails = (id: string) => {
     const book = books.find((book) => book.id === id);
@@ -65,84 +72,146 @@ const Cart = () => {
     return Number.isNaN(price) ? 0 : Intl.NumberFormat("id-ID").format(price);
   };
 
+  const handleSelection = (id: string) => {
+    setSelectedItems((oldSelected) =>
+      oldSelected.includes(id)
+        ? oldSelected.filter((itemId) => itemId !== id)
+        : [...oldSelected, id]
+    );
+  };
+
+  const handleSelectAll = () => {
+    if (selectedItems.length === cartList.length) {
+      setSelectedItems([]);
+    } else {
+      setSelectedItems(cartList.map((item) => item.id));
+    }
+  };
+
+  const getTotalPrice = () => {
+    return cartList
+      .filter((item) => selectedItems.includes(item.id))
+      .reduce((total, item) => {
+        const book = getBookDetails(item.id);
+        return book ? total + book.price * item.quantity : total;
+      }, 0);
+  };
+
   return (
-    <div className="text-[#872D37]">
+    <div className="pb-[10vh]">
       {cartList.length === 0 ? (
-        <p className="text-center">Keranjangmu masih kosong nih!</p>
+        <p className="text-center p-8">Keranjangmu masih kosong nih!</p>
       ) : (
-        <table className="w-screen table-auto">
+        <>
+          <table className="w-screen table-auto">
+            <thead>
+              <tr className="text-center font-bold bg-[#D4B3B7]">
+                <th className="max-sm:pl-2 sm:pl-8 pr-2 py-2 w-[5%]">
+                  <input
+                    type="checkbox"
+                    checked={selectedItems.length === cartList.length}
+                    onChange={handleSelectAll}
+                  />
+                </th>
+                <th className="py-2">Produk</th>
+                <th className="w-[10%] py-2">Kuantitas</th>
+                <th className="py-2 max-sm:hidden">Subtotal</th>
+                <th className="max-sm:pr-2 sm:pr-8 w-[5%] py-2"></th>
+              </tr>
+            </thead>
 
-          <thead>
-            <tr className="text-center font-bold bg-[#D4B3B7]">
-              <th className="max-sm:pl-2 sm:pl-8 py-2">Produk</th>
-              <th className="w-[10%] py-2">Kuantitas</th>
-              <th className="py-2 max-sm:hidden">Subtotal</th>
-              <th className="max-sm:pr-2 sm:pr-8 w-[5%] py-2"></th>
-            </tr>
-          </thead>
-
-          <tbody className="text-center">
-            {cartList.map((item) => {
-              const book = getBookDetails(item.id);
-              if (!book) return null;
-              return (
-                <tr key={item.id}>
-
-                  <td className="text-left max-sm:pl-2 sm:pl-8 py-2">
-                    <div className="flex flex-row">
-                      <Image
-                        src={book.image}
-                        alt={book.name}
-                        width={50}
-                        height={50}
-                        className="w-[50px] h-[50px]"
+            <tbody className="text-center">
+              {cartList.map((item) => {
+                const book = getBookDetails(item.id);
+                if (!book) return null;
+                return (
+                  <tr key={item.id}>
+                    <td className="max-sm:pl-2 sm:pl-8 pr-2 py-2">
+                      <input
+                        type="checkbox"
+                        checked={selectedItems.includes(item.id)}
+                        onChange={() => handleSelection(item.id)}
                       />
-                      <div className="pl-2">
-                        <div className="font-bold">{book.name}</div>
-                        <div className="text-sm">
-                          Rp {formatCurrency(book.price)}
+                    </td>
+                    <td className="text-left py-2">
+                      <div className="flex flex-row">
+                        <Image
+                          src={book.image}
+                          alt={book.name}
+                          width={50}
+                          height={50}
+                          className="w-[50px] h-[50px]"
+                        />
+                        <div className="pl-2">
+                          <div className="font-bold">{book.name}</div>
+                          <div className="text-sm">
+                            Rp {formatCurrency(book.price)}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </td>
+                    </td>
 
-                  <td className="px-2 py-2">
-                    <div className="flex justify-center">
-                      <QuantityChip
-                        quantity={item.quantity}
-                        onIncrease={() => updateQuantity(item.id, item.quantity + 1)}
-                        onDecrease={() => updateQuantity(
-                            item.id,
-                            item.quantity > 1 ? item.quantity - 1 : 1
-                          )}
-                        onChange={(newQuantity) => updateQuantity(item.id, newQuantity)}
-                      />
-                    </div>
-                    <div className="sm:hidden">
+                    <td className="px-2 py-2">
+                      <div className="flex justify-center">
+                        <QuantityChip
+                          quantity={item.quantity}
+                          onIncrease={() =>
+                            updateQuantity(item.id, item.quantity + 1)
+                          }
+                          onDecrease={() =>
+                            updateQuantity(
+                              item.id,
+                              item.quantity > 1 ? item.quantity - 1 : 1
+                            )
+                          }
+                          onChange={(newQuantity) =>
+                            updateQuantity(item.id, newQuantity)
+                          }
+                        />
+                      </div>
+                      <div className="sm:hidden">
+                        Rp {formatCurrency(book.price * item.quantity)}
+                      </div>
+                    </td>
+
+                    <td className="py-2 max-sm:hidden">
                       Rp {formatCurrency(book.price * item.quantity)}
-                    </div>
-                  </td>
+                    </td>
 
-                  <td className="py-2 max-sm:hidden">
-                    Rp {formatCurrency(book.price * item.quantity)}
-                  </td>
+                    <td className="max-sm:px-2 sm:pr-8 py-2">
+                      <button onClick={() => removeItem(item.id)}>
+                        <Image
+                          src="/Remove.svg"
+                          alt="Remove"
+                          width={25}
+                          height={25}
+                          className="min-w-[25px] min-h-[25px]"
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
 
-                  <td className="max-sm:px-2 sm:pr-8  py-2">
-                    <button onClick={() => removeItem(item.id)}>
-                      <Image
-                        src="/Remove.svg"
-                        alt="Remove"
-                        width={25}
-                        height={25}
-                        className="min-w-[25px] min-h-[25px]"
-                      />
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+          <div className="z-40 fixed bottom-0 w-full flex flex-row justify-between items-center max-sm:px-2 sm:px-8 py-4 h-[10vh] bg-[#E7D5D7]">
+            <div>
+              Total Order
+            </div>
+            <div className="flex flex-row items-center gap-8 font-bold">
+              Rp {formatCurrency(getTotalPrice())}
+              <Link href="cart/payment/">
+                <Image
+                  src="/CheckoutButton.svg"
+                  alt="Checkout"
+                  width={125}
+                  height={125} />
+              </Link>
+            </div>
+          </div>
+
+        </>
       )}
     </div>
   );

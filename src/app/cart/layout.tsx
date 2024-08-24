@@ -14,7 +14,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex flex-col min-h-screen bg-[#E7D5D7]">
+        <div className="flex flex-col min-h-screen bg-[#E7D5D7] text-[#872D37]">
           <CartNavbar />
           <main className="flex-grow">
             {children}
