@@ -1,17 +1,22 @@
 export default function Home() {
     return(
-        <div id="container" className="flex flex-col justify-center w-full">
-            <div id="header" className="w-full h-20 flex flex-row justify-center items-center bg-deepBurgundy">
-                <h1 className="text-[2.5rem] text-white font-bold">Keranjang</h1>
+        <div className="flex flex-col items-center w-full min-h-screen bg-deepBurgundy">
+            <div id="header" className="w-[90%] h-20 flex justify-between">
+                <h1 className="text-white text-3xl font-bold">Keranjang</h1>
+                <h3>mode</h3>
             </div>
-            <div id="lable" className="flex flex-row gap-x-32    justify-center bg-lightBurgundy">
-                <h3>Produk</h3>
-                <h3>Qty</h3>
-                <h3>Subtotal</h3>
-            </div>
-            <div id="products" className="flex flex-col bg-cream min-h-screen">
 
+            <div id="container" className="w-[95%] min-h-screen rounded-3xl flex-col bg-beige p-5">
+                <div id="label" className="flex justify-between">
+                    <h2>Produk</h2>
+                    <h2>Kuantitas</h2>
+                    <h2>Harga</h2>
+                    <h2>Total harga</h2>
+                </div>
+                
             </div>
+            
         </div>
+
     )  
 }
