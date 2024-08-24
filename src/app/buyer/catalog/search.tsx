@@ -12,8 +12,6 @@ interface Book {
     price: number;
     image: string;
   }
-
-// Define the props type
 interface SearchProps {
     books: Book[];
   }

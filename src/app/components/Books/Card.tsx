@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 
-
 interface CardProps {
     data: any
 }
