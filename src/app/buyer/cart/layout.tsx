@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import SessionWrapper from "./components/SessionWrapper";
+import "../../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,13 +15,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SessionWrapper>
-      <html lang="en" className={inter.className}>
-        <body className="bg-deepBurgundy flex justify-center">
+    <html lang="en" className={inter.className}>
+        <body className="flex justify-center">
             {children}
         </body>
-      </html>
-    </SessionWrapper>
-      
+    </html>
   );
 }
