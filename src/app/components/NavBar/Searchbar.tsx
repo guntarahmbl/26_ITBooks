@@ -26,7 +26,7 @@ export default function Searchbar({ onSearchSubmit }: SearchbarProps) {
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         if (data.searchTerm) {
             const url = queryString.stringifyUrl({
-                url: '/catalog',
+                url: './catalog',
                 query: {
                     searchTerm: data.searchTerm
                 }
