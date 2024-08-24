@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import Card from '../../components/Books/Card';
+import Card from '@/app/components/Books/Card';
 
 interface Book {
     id: string;
