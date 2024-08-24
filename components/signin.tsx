@@ -13,7 +13,7 @@ export default function Signup() {
 
   return (
     <div className="w-full h-full flex items-center justify-between my-auto">
-      <div className="w-[50%] h-[80%] bg-[#EDDFD6] rounded-xl flex flex-col justify-center items-center gap-y-5">
+      <div id="white-box" className="w-[50%] h-[80%] bg-cream rounded-xl flex flex-col justify-center items-center gap-y-5">
         <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-y-4 w-full">
           <h1 className="text-black h-8 text-[2.5rem] font-bold mb-8">Create Account</h1>
           <div className="w-[75%] mx-auto text-black flex flex-col justify-center m-0">
@@ -43,9 +43,9 @@ export default function Signup() {
         </div>
       </div>
 
-      <div>
-        <h1 className="text-[2.5rem] font-bold">Hi, <br /> Piips!</h1>
-        <img src="/books.png" alt="Books" className="w-96 relative -left-10" />
+      <div id="book-image">
+        <h1 className="text-[4rem] font-bold">Hi, <br /> Piips!</h1>
+        <Image src="/books.png" alt="Books" width={500} height={500} className="w-auto h-auto relative -left-10" />
       </div>
     </div>
   );
