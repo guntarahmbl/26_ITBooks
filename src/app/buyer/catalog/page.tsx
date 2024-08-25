@@ -1,6 +1,3 @@
-
-import { useSearchParams } from 'next/navigation';
-import { books } from "../../../../utils/example"; // Data buku sementara
 import { db } from '../../../../lib/prisma';
 import Search from './search';
 import Navbar from '@/app/components/NavBar/Navbar';

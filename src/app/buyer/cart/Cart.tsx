@@ -1,12 +1,16 @@
 import List from "@/app/components/List";
 interface Book {
-    id: string;
-    name: string;
-    description: string;
-    author: string;
-    publisher: string;
+    title: string;
+    emailPenjual: string;
     price: number;
-    image: string;
+    condition: string;
+    author: string;
+    edition: string;
+    isbn: string;
+    volume: string;
+    description: string;
+    notes: string;
+    file: File | null;
   }
 
 // Define the props type
@@ -33,7 +37,7 @@ export default function Cart({books}: SearchProps){
                     {
                         books.map((book) => {
                             return(
-                                <List key={book.name} name={book.name} price={book.price} />
+                                <List key={book.title} name={book.title} price={book.price} />
                             )
                         })
                     }
