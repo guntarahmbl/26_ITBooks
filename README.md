@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+        <a href="#about-the-project">About The Project</a>
+    </li>
+    <li>
+        <a href="#getting-started">Getting Started</a>
+        <ul>
+            <li><a href="#installation">Installation</a></li>
+        </ul>
+    </li>
+    <li>
+      <a href="#built-with">Built With</a>
+    </li>
+    <li>
+        <a href="#authors">Author</a>
+    </li>
+  </ol>
+</details>
+<br/>
 
+<!-- ABOUT THE PROJECT -->
+## About The Project
+ITBooks merupakan proyek yang dikembangkan dengan tujuan mewadahi kebutuhan jual beli dan hibah buku di kalangan mahasiswa Institut Teknologi Bandung (ITB). Platform ini akan menjembatani kakak tingkat sebagai penjual atau penghibah buku - buku mereka dengan adik tingkat yang sedang mencari referensi buku untuk mata kuliah yang akan datang. ITBooks akan menyelesaikan permasalahan kurangnya platform terstruktur untuk transaksi buku di lingkungan mahasiswa ITB.
+
+<!-- GETTING STARTED -->
 ## Getting Started
 
-First, run the development server:
+### Installation
+1. Clone the repo
+   ```sh
+   git clone https://github.com/guntarahmbl/ITBooks.git
+   ```
+2. Go to the repository root folder `ITBooks`
+   ```sh
+   cd ITBooks
+   ```
+3. Run this on terminal `npm run dev`
+   ```sh
+   npm run dev
+   ```
+4. Open http://localhost:3000 with your browser to see the result.
+<br/>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Built With
+| Bahasa Pemrograman | Framework
+| :---: | :---:
+| HTML, CSS, JavaScript, TypeScript | React, Next.js, Tailwind CSS, Prisma  |
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<!-- AUTHOR -->
+## Authors
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+| Name | Role 
+| :---: | :---: 
+| Rayhan Hidayatul Fikri | Product Manager |
+| Ferro Arka Berlian | Front-end developer |
+| Mahesa Satria Prayata | Back-end developer |
+| Buege Mahara Putra | Front-end developer |
+| Guntara Hambali | Back-end developer |
+| Ferdin Arsenarendra Purtadi | Front-end developer |
+| Daniel Pedrosa Wu | Front-end developer |
+| Shanice Feodora Tjahjono | Data Scientist |
+| Aliya Husna Fayyaza | Data Scientist |
+| Muhammad Kinan Arkansyaddad | Front-end developer |
+| Laras Hati Mahendra | UI/UX Designer |

@@ -80,20 +80,29 @@ model Authenticator {
   credentialBackedUp   Boolean
   transports           String?
  
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
  
   @@id([userId, credentialID])
 }
 
 model Catalogue {
-  id          String   @id @default(uuid())
-  name        String
-  description String
-  author      String
-  publisher   String
-  price       Float
-  image       String
+  idBuku        Int     @id @default(autoincrement())
+  emailPenjual  String  @default("")
+  title         String  @default("Unknown Title")
+  price         Float   @default(0)
+  condition     String  @default("Unknown")
+  author        String  @default("Unknown Author")
+  edition       String  @default("Unknown Edition")
+  isbn          String  @default("Unknown ISBN")
+  volume        String  @default("Unknown Volume")
+  description   String  @default("No Description")
+  notes         String?
+  imageUrl      String  @default("No Image URL")
+}
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model Cart {
+  idBuku        Int    
+  emailPembeli  String
+  
+  @@id([idBuku, emailPembeli])
 }

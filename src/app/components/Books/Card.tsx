@@ -12,7 +12,7 @@ const Card:React.FC<CardProps> = ({data}) => {
             <div className = "flex flex-col w-full gap-0.5">
                 <div className="aspect-square overflow-hidden relative w-full">
                     <Image
-                        src={data.image}
+                        src={data.imageUrl}
                         alt={data.name}
                         fill
                         className = "w-full h-full object-contain"
