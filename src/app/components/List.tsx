@@ -2,32 +2,35 @@
 import Image from "next/image";
 import { useState } from "react";
 
-export default function List({ idBuku, name, price }: { idBuku: number, name: string, price: number }) {
+export default function List({ idBuku, name, price, type }: { idBuku: number, name: string, price: number, type: String }) {
     const [isLoading, setIsLoading] = useState(false);
-
     const handleDelete = async () => {
         setIsLoading(true);
         try {
-            const response = await fetch(`/api/books/${idBuku}`, {
+            const route = type === "catalogue" ? "/api/catalogue-delete/" : "/api/cart-delete/";
+            const response = await fetch(route, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    idBuku: idBuku,
+                }),
             });
-
-            if (response.ok) {
-                // Handle successful deletion (e.g., notify user, update UI)
-                console.log('Book deleted successfully');
-                // Optionally, you could trigger a parent component update or use context to refresh the list
-            } else {
-                console.error('Failed to delete book');
+    
+            if (!response.ok) {
+                throw new Error('Failed to delete');
             }
+    
+            alert('Item deleted successfully');
         } catch (error) {
             console.error('Error:', error);
+            alert('Error deleting item');
         } finally {
             setIsLoading(false);
         }
     };
+    
 
     return (
         <div className="flex flex-row items-center border border-black rounded-xl p-2 bg-cream my-3">
