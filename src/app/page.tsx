@@ -1,7 +1,6 @@
 "use client";
-import Link from "next/link";
 import React from "react";
-import {useSession, signOut} from "next-auth/react";
+import {useSession} from "next-auth/react";
 import Signup from "./components/signin";
 import "./globals.css";
 import ChooseRole from "./components/ChooseRole";
@@ -18,5 +17,6 @@ export default function Home() {
         <Signup />
       )}
     </main>
+    
   );
 }
