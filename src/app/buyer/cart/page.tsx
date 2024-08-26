@@ -2,10 +2,13 @@ import Cart from "./Cart";
 import { db } from "../../../../lib/prisma";
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../../../../lib/authOptions";
+import { redirect } from "next/navigation";
 
 async function getBooksOnCart() {
     const session = await getServerSession(authOptions);
-
+    if (!session){
+      redirect('/')
+    }
     const cartItems = await db.cart.findMany({
       where: {
           emailPembeli: session.user.email,

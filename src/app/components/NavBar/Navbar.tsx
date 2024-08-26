@@ -37,9 +37,10 @@ export default function Navbar() {
                     </div>
 
                     <div className="flex items-center gap-6 md:gap-8">
-                        <div>Bookmark</div>
-                        <div>User</div>
-                        <button onClick={() => signOut()}>Sign Out</button>
+                    <Link href="cart" className="hover:scale-105 transition-all duration-300" >
+                        <Image src="/cart.svg" alt="" width={50} height={50} />
+                    </Link>
+                        <button onClick={() => signOut({ callbackUrl: '/login' })} className='text-beige'>Sign Out</button>
                         <button
                             className="block sm:hidden"
                             onClick={toggleSearch}

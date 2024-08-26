@@ -2,9 +2,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import { NextAuthOptions } from "next-auth";
 import Email from "next-auth/providers/email";
-import nodemailer from "nodemailer";
 import { z } from "zod";
-import { Session, User } from 'next-auth';
 
 const prisma = new PrismaClient();
 const emailSchema = z.string().email({ message: 'Invalid email format' }) .refine((email) => email.endsWith('@mahasiswa.itb.ac.id'), { message: 'Email must end with @mahasiswa.itb.ac.id',});

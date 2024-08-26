@@ -1,19 +1,8 @@
 import List from "@/app/components/List";
-interface Book {
-    title: string;
-    emailPenjual: string;
-    price: number;
-    condition: string;
-    author: string;
-    edition: string;
-    isbn: string;
-    volume: string;
-    description: string;
-    notes: string;
-    file: File | null;
-  }
+import { Book } from "../../../../lib/type";
+import Link from "next/link";
+import Image from "next/image";
 
-// Define the props type
 interface SearchProps {
     books: Book[];
   }
@@ -23,7 +12,9 @@ export default function Cart({books}: SearchProps){
         <div className="flex flex-col items-center w-full h-full bg-deepBurgundy">
             <div id="header" className="w-[90%] h-24 flex justify-between items-center">
                 <h1 className="text-white text-[2.5rem] font-bold">Keranjang</h1>
-                <h3>mode</h3>
+                <Link href="catalog" className="hover:scale-105 transition-all duration-300" >
+                    <Image src="/home_beige.svg" alt="" width={50} height={50} />
+                </Link>
             </div>
 
             <div id="container" className="w-[95%] min-h-screen rounded-3xl bg-gradient-to-bl from-cream p-6">
@@ -37,7 +28,7 @@ export default function Cart({books}: SearchProps){
                     {
                         books.map((book) => {
                             return(
-                                <List key={book.title} name={book.title} price={book.price} />
+                                <List key={book.idBuku} idBuku={book.idBuku} name={book.title} price={book.price} type="cart" />
                             )
                         })
                     }
