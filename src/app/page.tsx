@@ -2,8 +2,9 @@
 import React from "react";
 import {useSession} from "next-auth/react";
 import Signup from "./components/signin";
-import "./globals.css";
 import ChooseRole from "./components/ChooseRole";
+import "./globals.css";
+
 export default function Home() {
   const { data:session } = useSession();
 
@@ -13,9 +14,9 @@ export default function Home() {
       {session ? (
         <ChooseRole />
       ):(
-        
         <Signup />
       )}
+
     </main>
     
   );
