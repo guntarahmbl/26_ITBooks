@@ -1,7 +1,6 @@
 // app/api/books/[id]/route.ts
 import { NextResponse } from 'next/server';
 import { db } from '../../../../../lib/prisma';
-
 export async function DELETE(request: Request) {
     const url = new URL(request.url);
     const id = url.pathname.split('/').pop(); // Extract ID from URL

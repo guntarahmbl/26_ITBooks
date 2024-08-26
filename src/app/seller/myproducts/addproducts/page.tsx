@@ -3,6 +3,7 @@ import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 // Define types for form data
 interface FormData {
   title: string;
@@ -20,7 +21,9 @@ interface FormData {
 
 export default function Home() {
   const { data: session } = useSession();
-  
+  if (!session){
+    redirect('/')
+  }
   const [formData, setFormData] = useState<FormData>({
     title: "",
     emailPenjual: "",
@@ -90,8 +93,7 @@ export default function Home() {
             imageUrl,
       };
       
-      console.log(formDataWithEmail)
-      const saveRes = await fetch("/api/catalogue", {
+      const saveRes = await fetch("/api/add-catalogue", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -129,8 +131,8 @@ export default function Home() {
     <div className="flex flex-col w-full items-center">
       <div id="header" className="flex flex-row items-center justify-between h-20 w-[90%]">
         <h1 className=" font-bold text-[2.5rem] text-white">Tambahkan Produk</h1>
-        <Link href="/seller/myproducts" className="w-50 h-50 bg-white">
-          <Image src="/home.svg" width={70} height={70} alt="" className="bg-white"/>
+        <Link href="/seller/myproducts" className="w-50 h-50 hover:scale-105">
+          <Image src="/home_beige.svg" width={50} height={50} alt="" className=""/>
         </Link>
       </div>
 

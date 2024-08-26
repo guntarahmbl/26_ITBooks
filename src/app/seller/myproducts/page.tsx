@@ -2,9 +2,13 @@ import { db } from "../../../../lib/prisma";
 import MyProducts from "./MyProducts";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../../lib/authOptions";
-
+import { Book } from "../../../../lib/type";
+import { redirect } from "next/navigation";
 async function getBooksOnMyProducts() {
     const session = await getServerSession(authOptions);
+    if (!session){
+        redirect('/')
+    }
     const books = await db.catalogue.findMany({
         where : {
             emailPenjual: session.user.email,
@@ -14,7 +18,7 @@ async function getBooksOnMyProducts() {
 }
 
 export default async function Home() {
-    const books = await getBooksOnMyProducts();
+    const books: Book[] = await getBooksOnMyProducts();
     return(
         <MyProducts books = {books}/>
     )  
