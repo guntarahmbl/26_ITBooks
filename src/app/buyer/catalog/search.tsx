@@ -16,8 +16,6 @@ interface Book {
     notes: string;
     file: File | null;
   }
-
-// Define the props type
 interface SearchProps {
     books: Book[];
   }

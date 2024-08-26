@@ -20,7 +20,7 @@ export default function Navbar() {
         <div className="sticky top-0 bg-deepBurgundy z-30 shadow-sm">
             <div className="py-4 border-b-[1px]">
                 <div className="flex items-center justify-between gap-4 md:gap-8 mx-auto xl:px-6 md:px-4 px-2">
-                    <Link href="/catalog">
+                    <Link href="/buyer/catalog">
                         <Image
                             src="/Logo.png"
                             alt="ITBooks Logo"
