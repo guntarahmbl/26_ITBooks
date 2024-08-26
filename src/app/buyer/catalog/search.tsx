@@ -40,7 +40,7 @@ export default function Search({books}: SearchProps) {
                     {filteredBooks.length > 0 ? (
                         filteredBooks.map((book: any) => (
                             <Card
-                                key={book.id}
+                                key={book.idBuku}
                                 data={book}
                             />
                         ))
