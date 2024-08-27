@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { MouseEvent } from "react";
 import { Book } from "../../../../../../lib/type";
+import { redirect } from "next/navigation";
 
 interface DetailsProps {
   book: Book;
@@ -12,7 +13,9 @@ interface DetailsProps {
 
 export default function Details({ book }: DetailsProps) {
   const { data: session } = useSession();
-
+  if (!session){
+    redirect('/')
+  }
   const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
