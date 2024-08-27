@@ -109,7 +109,7 @@ export default function Home() {
       alert("Data berhasil disimpan!");
       setFormData({
         title: "",
-        emailPenjual: session?.user?.email,
+        emailPenjual: session?.user?.email as string,
         price: 0,
         condition: "",
         author: "",
