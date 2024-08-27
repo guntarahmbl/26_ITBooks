@@ -1,6 +1,6 @@
 export interface Book {
     idBuku:number;
-    emailPenjual: string;
+    emailPenjual: string | null;
     title: string;
     price: number;
     condition: string;
@@ -9,7 +9,7 @@ export interface Book {
     isbn: string;
     volume: string;
     description: string;
-    notes: string;
-    file: File;
+    notes: string | null;
+    file?: File;
     imageUrl:string;
 }

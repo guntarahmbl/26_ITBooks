@@ -14,12 +14,12 @@ export default function ChooseRole() {
             </div>
             <div id="white-box" className="w-[70%] h-[40%] bg-cream rounded-xl flex flex-col justify-center items-center gap-y-5">
                 <div className="flex flex-row gap-x-5">
-                    <Link href="/seller/myproduct" id="penjual" className="bg-deepBurgundy flex flex-col items-center w-36 rounded-xl">
+                    <Link href="/seller/myproducts" id="penjual" className="bg-deepBurgundy flex flex-col items-center w-36 rounded-xl hover:scale-105 duration-200">
                         <Image src="/penjual.svg" alt="Books" width={80} height={80} className="" />
                         <h2 className="text-white">Penjual</h2>
                     </Link>
 
-                    <Link href="/buyer/catalog" id="pembeli" className="bg-deepBurgundy flex flex-col items-center w-36 rounded-xl">
+                    <Link href="/buyer/catalog" id="pembeli" className="bg-deepBurgundy flex flex-col items-center w-36 rounded-xl hover:scale-105 duration-200">
                         <Image src="/pembeli.svg" alt="Books" width={80} height={80} className="" />
                         <h2 className="text-white">Pembeli</h2>
                     </Link>

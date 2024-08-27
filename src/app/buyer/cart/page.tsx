@@ -3,15 +3,16 @@ import { db } from "../../../../lib/prisma";
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../../../../lib/authOptions";
 import { redirect } from "next/navigation";
-
+import { Book } from "../../../../lib/type";
 async function getBooksOnCart() {
     const session = await getServerSession(authOptions);
-    if (!session){
-      redirect('/')
+
+    if (!session || !session.user || !session.user.email) {
+      redirect('/');
     }
     const cartItems = await db.cart.findMany({
       where: {
-          emailPembeli: session.user.email,
+          emailPembeli: session.user.email as string,
       },
       select: {
           idBuku: true,
@@ -31,7 +32,7 @@ async function getBooksOnCart() {
 }
 
 export default async function Home() {
-    const books = await getBooksOnCart();
+    const books:Book[] = await getBooksOnCart();
     return(
         <Cart books = {books}/>
     )  

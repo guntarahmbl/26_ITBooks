@@ -39,7 +39,7 @@ export default function Details({ book }: DetailsProps) {
 
   return (
     <div id="container" className="text-deepBurgundy px-16 py-10 relative">
-      <Link href="/buyer/catalog" className="absolute right-32">
+      <Link href="/buyer/catalog" className="absolute right-32 hover:scale-105 duration-200">
         <Image src="/home.svg" width={50} height={50} alt="" />
       </Link>
 

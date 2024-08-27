@@ -109,7 +109,7 @@ export default function Home() {
       alert("Data berhasil disimpan!");
       setFormData({
         title: "",
-        emailPenjual: session?.user?.email,
+        emailPenjual: session?.user?.email as string,
         price: 0,
         condition: "",
         author: "",
@@ -257,7 +257,7 @@ export default function Home() {
           <input type="file" name="file" onChange={handleFileChange} />
         </div>
 
-        <button type="submit" className="mt-5 px-4 py-2 bg-deepBurgundy hover:bg-opacity-90 text-white rounded-xl">
+        <button type="submit" className="mt-5 px-4 py-2 bg-deepBurgundy hover:scale-105 duration-200 text-white rounded-xl">
           Submit
         </button>
       </form>
