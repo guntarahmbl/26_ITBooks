@@ -5,7 +5,7 @@ import Image from "next/image";
 
 interface SearchProps {
     books: Book[];
-  }
+}
   
 export default function Cart({books}: SearchProps){
     return(

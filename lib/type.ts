@@ -9,7 +9,7 @@ export interface Book {
     isbn: string;
     volume: string;
     description: string;
-    notes: string;
-    file: File;
+    notes: string | null;
+    file?: File;
     imageUrl:string;
 }
