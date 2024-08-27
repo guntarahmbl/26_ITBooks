@@ -6,12 +6,12 @@ import { Book } from "../../../../lib/type";
 import { redirect } from "next/navigation";
 async function getBooksOnMyProducts() {
     const session = await getServerSession(authOptions);
-    if (!session){
-        redirect('/')
-    }
+    if (!session || !session.user || !session.user.email) {
+        redirect('/');
+      }
     const books = await db.catalogue.findMany({
         where : {
-            emailPenjual: session.user.email,
+            emailPenjual: session.user.email as string,
         },
     });
     return books;
