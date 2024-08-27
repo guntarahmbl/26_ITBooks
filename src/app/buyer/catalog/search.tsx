@@ -2,20 +2,8 @@
 
 import { useSearchParams } from 'next/navigation';
 import Card from '@/app/components/Books/Card';
+import { Book } from '../../../../lib/type';
 
-interface Book {
-    title: string;
-    emailPenjual: string;
-    price: number;
-    condition: string;
-    author: string;
-    edition: string;
-    isbn: string;
-    volume: string;
-    description: string;
-    notes: string;
-    file: File | null;
-  }
 interface SearchProps {
     books: Book[];
   }

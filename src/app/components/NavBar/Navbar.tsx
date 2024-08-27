@@ -40,7 +40,7 @@ export default function Navbar() {
                     <Link href="cart" className="hover:scale-105 transition-all duration-300" >
                         <Image src="/cart.svg" alt="" width={50} height={50} />
                     </Link>
-                    <Link href="../seller/myproducts" className="hover:scale-105 transition-all duration-300 text-white hover:scale-105 duration-200" >
+                    <Link href="../seller/myproducts" className=" transition-all text-white hover:scale-105 duration-200" >
                         Mode Penjual
                     </Link>
 
