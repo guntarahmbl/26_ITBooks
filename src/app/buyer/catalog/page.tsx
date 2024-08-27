@@ -19,7 +19,7 @@ export default async function Home() {
     return(
         <>
             <Navbar />
-            <Search books = {books}/>
+            <Search books = {books}/>   
         </>
     )
 }
