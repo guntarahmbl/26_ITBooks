@@ -40,7 +40,11 @@ export default function Navbar() {
                     <Link href="cart" className="hover:scale-105 transition-all duration-300" >
                         <Image src="/cart.svg" alt="" width={50} height={50} />
                     </Link>
-                        <button onClick={() => signOut({ callbackUrl: '/login' })} className='text-beige'>Sign Out</button>
+                    <Link href="../seller/myproducts" className="hover:scale-105 transition-all duration-300 text-white hover:scale-105 duration-200" >
+                        Mode Penjual
+                    </Link>
+
+                        <button onClick={() => signOut({ callbackUrl: '/' })} className='text-white hover:scale-105 duration-200'>Sign Out</button>
                         <button
                             className="block sm:hidden"
                             onClick={toggleSearch}

@@ -28,7 +28,6 @@ export default function Search({books}: SearchProps) {
         return (
             book.title.toLowerCase().includes(lowerTerm) ||
             book.description.toLowerCase().includes(lowerTerm) ||
-            book.publisher.toLowerCase().includes(lowerTerm) ||
             book.author.toLowerCase().includes(lowerTerm)
         );
     });
