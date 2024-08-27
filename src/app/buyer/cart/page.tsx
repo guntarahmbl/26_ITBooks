@@ -6,8 +6,9 @@ import { redirect } from "next/navigation";
 
 async function getBooksOnCart() {
     const session = await getServerSession(authOptions);
-    if (!session){
-      redirect('/')
+
+    if (!session || !session.user || !session.user.email) {
+      redirect('/');
     }
     const cartItems = await db.cart.findMany({
       where: {
