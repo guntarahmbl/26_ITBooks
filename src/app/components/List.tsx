@@ -1,13 +1,15 @@
 "use client"
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 
 export default function List({ idBuku, name, price, type }: { idBuku: number, name: string, price: number, type: String }) {
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
     const handleDelete = async () => {
         setIsLoading(true);
         try {
-            const route = type === "catalogue" ? "/api/catalogue-delete/" : "/api/cart-delete/";
+            const route = type === "catalogue" ? `/api/catalogue-delete/${idBuku}` : "/api/cart-delete/";
             const response = await fetch(route, {
                 method: 'DELETE',
                 headers: {
@@ -17,12 +19,15 @@ export default function List({ idBuku, name, price, type }: { idBuku: number, na
                     idBuku: idBuku,
                 }),
             });
+
     
             if (!response.ok) {
                 throw new Error('Failed to delete');
             }
-    
+
+            router.refresh();
             alert('Item deleted successfully');
+
         } catch (error) {
             console.error('Error:', error);
             alert('Error deleting item');
