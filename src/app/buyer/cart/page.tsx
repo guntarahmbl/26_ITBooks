@@ -12,7 +12,7 @@ async function getBooksOnCart() {
     }
     const cartItems = await db.cart.findMany({
       where: {
-          emailPembeli: session.user.email,
+          emailPembeli: session.user.email as string,
       },
       select: {
           idBuku: true,
