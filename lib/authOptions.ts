@@ -1,7 +1,7 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import { NextAuthOptions } from "next-auth";
-import Email from "next-auth/providers/email";
+import EmailProvider from "next-auth/providers/email";
 import { z } from "zod";
 
 const prisma = new PrismaClient();
@@ -10,7 +10,7 @@ const emailSchema = z.string().email({ message: 'Invalid email format' }) .refin
 export const authOptions:NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
     providers: [
-        Email({
+        EmailProvider({
             server: {
               host: process.env.SMTP_HOST,
               port: Number(process.env.SMTP_PORT),
