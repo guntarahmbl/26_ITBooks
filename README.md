@@ -29,20 +29,8 @@ ITBooks merupakan proyek yang dikembangkan dengan tujuan mewadahi kebutuhan jual
 ## Getting Started
 
 ### Installation
-1. Clone the repo
-   ```sh
-   git clone https://github.com/guntarahmbl/ITBooks.git
-   ```
-2. Go to the repository root folder `ITBooks`
-   ```sh
-   cd ITBooks
-   ```
-3. Run this on terminal `npm run dev`
-   ```sh
-   npm run dev
-   ```
-4. Open http://localhost:3000 with your browser to see the result.
-<br/>
+1. Open https://26-itbooks.vercel.app on your web browser.
+2. Enjoy the app. you can choose the mode between seller or buyer.
 
 ## Built With
 | Bahasa Pemrograman | Framework
