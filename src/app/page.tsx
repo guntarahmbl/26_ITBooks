@@ -1,10 +1,9 @@
 "use client";
 import React from "react";
 import {useSession} from "next-auth/react";
-import Signup from "./components/signin";
 import ChooseRole from "./components/ChooseRole";
 import "./globals.css";
-
+import SignIn from "./components/signin";
 export default function Home() {
   const { data:session } = useSession();
 
@@ -14,7 +13,7 @@ export default function Home() {
       {session ? (
         <ChooseRole />
       ):(
-        <Signup />
+        <SignIn/>
       )}
 
     </main>
