@@ -3,7 +3,7 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation"; // Import useRouter
+import { useRouter } from "next/navigation";
 
 interface FormData {
   title: string;
@@ -19,7 +19,7 @@ interface FormData {
   file: File | null;
 }
 
-export default function Home() {
+export default function AddProductForm() {
   const { data: session } = useSession();
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
@@ -49,12 +49,12 @@ export default function Home() {
     return null;
   }
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData(prevData => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -65,25 +65,28 @@ export default function Home() {
         alert('Hanya file gambar yang diizinkan.');
         e.target.value = '';
       } else {
-        setFormData({
-          ...formData,
+        setFormData(prevData => ({
+          ...prevData,
           file: file,
-        });
+        }));
       }
     }
   };
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    if (!formData.title) newErrors.title = "Judul buku harus diisi.";
-    if (!formData.price) newErrors.price = "Harga buku harus diisi.";
-    if (!formData.condition) newErrors.condition = "Kondisi buku harus diisi.";
-    if (!formData.author) newErrors.author = "Penulis buku harus diisi.";
-    if (!formData.edition) newErrors.edition = "Edisi buku harus diisi.";
-    if (!formData.isbn) newErrors.isbn = "ISBN buku harus diisi.";
-    if (!formData.volume) newErrors.volume = "Jilid buku harus diisi.";
-    if (!formData.description) newErrors.description = "Deskripsi buku harus diisi.";
-    if (!formData.file) newErrors.file = "File gambar harus diunggah.";
+    const requiredFields: (keyof FormData)[] = ['title', 'price', 'condition', 'author', 'edition', 'isbn', 'volume', 'description', 'file'];
+    
+    requiredFields.forEach(field => {
+      if (!formData[field]) {
+        newErrors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} harus diisi.`;
+      }
+    });
+
+    if (formData.price <= 0) {
+      newErrors.price = "Harga harus lebih besar dari 0.";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -104,8 +107,10 @@ export default function Home() {
         method: "POST",
         body: data,
       });
+      if (!res.ok) throw new Error("Failed to upload image");
       const result = await res.json();
       const imageUrl = result.secure_url;
+      
       const formDataWithEmail = {
         ...formData,
         emailPenjual: session?.user?.email || "",
@@ -137,7 +142,7 @@ export default function Home() {
         file: null,
       });
       setErrors({});
-      router.push('/seller/myproducts'); // Redirect to the previous page
+      router.push('/seller/myproducts');
 
     } catch (error) {
       console.error("Error:", error);
@@ -150,7 +155,7 @@ export default function Home() {
       <div id="header" className="flex flex-row items-center justify-between h-20 w-[90%]">
         <h1 className="font-bold text-[2.5rem] text-white">Tambahkan Produk</h1>
         <Link href="/seller/myproducts" className="w-50 h-50 hover:scale-105">
-          <Image src="/home_beige.svg" width={50} height={50} alt="" />
+          <Image src="/home_beige.svg" width={50} height={50} alt="Home" />
         </Link>
       </div>
 
@@ -262,34 +267,37 @@ export default function Home() {
 
         <div className="w-full">
           <p>Deskripsi Buku*</p>
-          <input
-            type="text"
+          <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
-            onKeyDown={handleKeyDown}
             className={`border rounded-xl w-full px-5 py-2 ${errors.description ? 'border-red-500' : 'border-black'}`}
             placeholder="Jelaskan informasi buku yang ingin anda jual"
+            rows={4}
           />
           {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
         </div>
 
         <div className="w-full">
           <p>Catatan Tambahan</p>
-          <input
-            type="text"
+          <textarea
             name="notes"
             value={formData.notes}
             onChange={handleChange}
-            onKeyDown={handleKeyDown}
             className={`border rounded-xl w-full px-5 py-2 ${errors.notes ? 'border-red-500' : 'border-black'}`}
             placeholder="Jelaskan informasi tambahan buku yang ingin anda jual"
+            rows={4}
           />
         </div>
 
-        <div>
+        <div className="w-full">
           <h1>Unggah produk</h1>
-          <input type="file" name="file" onChange={handleFileChange} />
+          <input 
+            type="file" 
+            name="file" 
+            onChange={handleFileChange}
+            className={`w-full ${errors.file ? 'border-red-500' : ''}`}
+          />
           {errors.file && <p className="text-red-500 text-sm">{errors.file}</p>}
         </div>
 

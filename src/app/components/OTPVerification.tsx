@@ -8,7 +8,6 @@ interface Props {
   email: string
 }
 
-
 export default function OTPVerification({ email }: Props) {
   const [code, setCode] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,17 +19,33 @@ export default function OTPVerification({ email }: Props) {
 
     const formattedEmail = encodeURIComponent(email.toLowerCase().trim())
     const formattedCode = encodeURIComponent(code)
-    const formattedCallback = encodeURIComponent('/')
+    const formattedCallback = encodeURIComponent('/chooserole')
     const otpRequestURL = `/api/auth/callback/email?email=${formattedEmail}&token=${formattedCode}&callbackUrl=${formattedCallback}`
-    const response = await fetch(otpRequestURL)
+    
+    try {
+      const response = await fetch(otpRequestURL)
 
-    if (response) {
-      if (response.url.includes('/')) {
-        router.push(response.url)
-        signIn("email")
+      if (response.ok) {
+        // OTP verification successful
+        const result = await signIn("email", {
+          email: email,
+          redirect: false,
+        });
+
+        if (result?.error) {
+          console.error("Sign in error:", result.error);
+          router.replace(`/?error=SignIn`);
+        } else {
+          // Sign in successful, redirect to choose role page
+          router.push('/chooserole');
+        }
       } else {
-        router.replace(`/?error=Verification`)
+        // OTP verification failed
+        router.replace(`/?error=Verification`);
       }
+    } catch (error) {
+      console.error("OTP verification error:", error);
+      router.replace(`/?error=VerificationFailed`);
     }
 
     setIsSubmitting(false)
@@ -60,13 +75,12 @@ export default function OTPVerification({ email }: Props) {
           <div id="button" className="w-[25%] h-10 rounded-lg mx-auto hover:scale-105 text-white from-deepBurgundy to-black bg-gradient-to-b flex justify-center mt-8">
             <button 
                 type="submit" 
-                className=" w-full h-full mx-auto my-auto font-medium "
+                className="w-full h-full mx-auto my-auto font-medium"
                 disabled={isSubmitting || !code || code.length !== 6}>
               {isSubmitting ? 'Verifying...' : 'Verify'}
             </button>
           </div>
         </form>
-
       </div>
 
       <div id="book-image">
