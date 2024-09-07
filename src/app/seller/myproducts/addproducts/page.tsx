@@ -22,12 +22,6 @@ interface FormData {
 export default function Home() {
   const { data: session } = useSession();
   const router = useRouter();
-
-  if (!session) {
-    router.push('/');
-    return null;
-  }
-
   const [formData, setFormData] = useState<FormData>({
     title: "",
     emailPenjual: session?.user?.email || "",
@@ -49,6 +43,11 @@ export default function Home() {
       event.preventDefault();
     }
   };
+  
+  if (!session) {
+    router.push('/');
+    return null;
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
