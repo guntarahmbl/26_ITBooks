@@ -1,4 +1,4 @@
-import Cart from "./Cart";
+import Cart from "@/app/components/Cart";
 import { db } from "../../../../lib/prisma";
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../../../../lib/authOptions";

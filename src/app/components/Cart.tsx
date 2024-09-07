@@ -1,24 +1,20 @@
-"use client";
 import List from "@/app/components/List";
-import Link from "next/dist/client/link";
-import { Book } from "../../../../lib/type";
-import { signOut } from "next-auth/react";
-// Define the props type
+import { Book } from "../../../lib/type";
+import Link from "next/link";
+import Image from "next/image";
+
 interface SearchProps {
     books: Book[];
-  }
+}
   
-export default function MyProducts({books}: SearchProps){
+export default function Cart({books}: SearchProps){
     return(
         <div className="flex flex-col items-center w-full h-full bg-deepBurgundy">
             <div id="header" className="w-[90%] h-24 flex justify-between items-center">
-                <h1 className="text-white text-[2.5rem] font-bold">Produk Saya</h1>
-                <div className="flex flex-row gap-x-7">
-                    <Link href="myproducts/addproducts" className="text-white hover:text-opacity-80">Add Product</Link>
-                    <button onClick={()=>signOut({ callbackUrl: '/' })} className="text-white hover:text-opacity-80">Sign Out</button>
-                    <Link href="../buyer/catalog" className="text-white hover:text-opacity-80">Buyer Mode</Link>
-                    
-                </div>
+                <h1 className="text-white text-[2.5rem] font-bold">Keranjang</h1>
+                <Link href="catalog" className="hover:scale-105 transition-all duration-300" >
+                    <Image src="/home_beige.svg" alt="" width={50} height={50} />
+                </Link>
             </div>
 
             <div id="container" className="w-[95%] min-h-screen rounded-3xl bg-gradient-to-bl from-cream p-6">
@@ -32,7 +28,7 @@ export default function MyProducts({books}: SearchProps){
                     {
                         books.map((book) => {
                             return(
-                                <List idBuku={book.idBuku} key={book.title} name={book.title} price={book.price} type="catalogue"/>
+                                <List key={book.idBuku} idBuku={book.idBuku} name={book.title} price={book.price} type="cart" />
                             )
                         })
                     }

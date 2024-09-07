@@ -2,13 +2,34 @@
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default function SignIn() {
+interface Props {
+    onSubmit: (email: string) => void
+}
+
+export default function EmailSubmission({ onSubmit }: Props) {
   const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter()
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signIn("email", { email });
+    setIsSubmitting(true)
+
+    const response = await signIn('email', { email, redirect: false })
+    if (response?.error) {
+      if (response?.url) {
+        router.push(response.url)
+      } else {
+        router.replace(`/?error=${encodeURIComponent(response.error)}`)
+      }
+    } else {
+      onSubmit(email)
+    }
+
+    setIsSubmitting(false)
+
   };
 
   return (
@@ -17,7 +38,7 @@ export default function SignIn() {
         <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-y-4 w-full">
           <h1 className="text-black h-8 text-[2.5rem] font-bold mb-8">Masuk</h1>
           <div className="w-[75%] mx-auto text-black flex flex-col justify-center m-0">
-            <p className="text-sm px-1 text-black m-0 font-medium">Email</p>
+            <p className="text-sm px-1 text-black m-0 font-medium">Email ITB</p>
             <div className="flex flex-row gap-x-2 border border-black rounded-2xl py-2 px-4">
               <Image src="/email.svg" alt="Email icon" width={25} height={25} />
               <input
@@ -25,14 +46,17 @@ export default function SignIn() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-cream focus:outline-none"
-                placeholder="Enter your email"
+                placeholder="example@mahasiswa.itb.ac.id"
               />
             </div>
           </div>
 
-          <div id="button" className="w-[25%] h-10 rounded-lg mx-auto hover:scale-105 text-white from-deepBurgundy bg-gradient-to-b flex justify-center mt-8">
-            <button type="submit" className=" w-full h-full mx-auto my-auto font-medium ">
-              SIGN IN
+          <div id="button" className="w-[30%] h-10 rounded-lg mx-auto hover:scale-105 text-white from-deepBurgundy to-black bg-gradient-to-b flex justify-center mt-8">
+            <button 
+                type="submit" 
+                className="w-full h-full mx-auto my-auto font-medium "
+                disabled={isSubmitting || !email}>
+              {isSubmitting ? 'Sending email...' : 'SIGN IN'}
             </button>
           </div>
         </form>

@@ -3,7 +3,9 @@ import React from "react";
 import {useSession} from "next-auth/react";
 import ChooseRole from "./components/ChooseRole";
 import "./globals.css";
-import SignIn from "./components/signin";
+import SignInForm from "./components/SignInForm";
+import VerificationAlert from "./components/VerificationAlert";
+
 export default function Home() {
   const { data:session } = useSession();
 
@@ -13,7 +15,10 @@ export default function Home() {
       {session ? (
         <ChooseRole />
       ):(
-        <SignIn/>
+        <>
+          <VerificationAlert />
+          <SignInForm />
+        </>
       )}
 
     </main>

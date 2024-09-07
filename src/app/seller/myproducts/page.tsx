@@ -1,5 +1,5 @@
 import { db } from "../../../../lib/prisma";
-import MyProducts from "./MyProducts";
+import MyProducts from "@/app/components/MyProducts"; 
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../../lib/authOptions";
 import { Book } from "../../../../lib/type";
