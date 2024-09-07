@@ -3,7 +3,7 @@ import React from "react";
 import {useSession} from "next-auth/react";
 import ChooseRole from "./components/ChooseRole";
 import "./globals.css";
-import SignIn from "./components/SignIn";
+import SignIn from "./components/signin";
 export default function Home() {
   const { data:session } = useSession();
 
