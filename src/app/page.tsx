@@ -1,8 +1,13 @@
 "use client";
 import React from "react";
+import dynamic from 'next/dynamic';
 import "./globals.css";
 import SignInForm from "./components/SignInForm";
-import VerificationAlert from "./components/VerificationAlert";
+
+// Dynamically import VerificationAlert with SSR disabled
+const VerificationAlert = dynamic(() => import('./components/VerificationAlert'), {
+  ssr: false,
+});
 
 export default function Home() {
   return ( 
@@ -12,6 +17,5 @@ export default function Home() {
         <SignInForm />
       </>
     </main>
-    
   );
 }
