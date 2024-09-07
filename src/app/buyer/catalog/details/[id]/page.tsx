@@ -4,11 +4,10 @@ import { Book } from "../../../../../../lib/type";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../../../../../lib/authOptions";
 
-async function getBooks(idBuku: number, emailPenjual: string | undefined) {
+async function getBooks(idBuku: number) {
   const book = await db.catalogue.findUnique({
     where: {
       idBuku: idBuku,
-      emailPenjual: emailPenjual
     },
   });
   return book;
@@ -23,7 +22,7 @@ export default async function Home({ params }: { params: { id: string } }) {
     return <div>Unauthorized</div>;
   }
 
-  const book = await getBooks(idBuku, session.user.email);
+  const book = await getBooks(idBuku);
 
   // Handle the case where the book might not be found
   if (!book) {
