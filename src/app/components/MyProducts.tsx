@@ -3,6 +3,7 @@ import List from "@/app/components/List";
 import Link from "next/dist/client/link";
 import { Book } from "../../../lib/type";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 // Define the props type
 interface SearchProps {
     books: Book[];
@@ -10,14 +11,16 @@ interface SearchProps {
   
 export default function MyProducts({books}: SearchProps){
     return(
-        <div className="flex flex-col items-center w-full h-full bg-deepBurgundy">
+        <div className="relative flex flex-col items-center w-full h-full bg-deepBurgundy">
+            <Link href="myproducts/addproducts" className="text-white hover:scale-105 duration-300 transition-all fixed bottom-10 right-10">
+                <Image src="/add.svg" alt="" width={50} height={50} />
+            </Link>
+
             <div id="header" className="w-[90%] h-24 flex justify-between items-center">
                 <h1 className="text-white text-[2.5rem] font-bold">Produk Saya</h1>
                 <div className="flex flex-row gap-x-7">
-                    <Link href="myproducts/addproducts" className="text-white hover:scale-105 duration-300 transition-all">Add Product</Link>
-                    <button onClick={()=>signOut({ callbackUrl: '/' })} className="text-white hover:scale-105 duration-300 transition-all">Sign Out</button>
-                    <Link href="../buyer/catalog" className="text-white hover:scale-105 duration-300 transition-all">Buyer Mode</Link>
-                    
+                    <Link href="../buyer/catalog" className="text-white hover:scale-105 duration-300 transition-all">Mode Pembeli</Link>
+                    <button onClick={()=>signOut({ callbackUrl: '/' })} className="text-white hover:scale-105 duration-300 transition-all">Sign Out</button>  
                 </div>
             </div>
 

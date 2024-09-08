@@ -55,11 +55,10 @@ export default function OTPVerification({ email }: Props) {
     <div className="w-full h-full flex items-center justify-between my-auto">
       <div id="white-box" className="w-[50%] h-[80%] bg-cream rounded-xl flex flex-col justify-center items-center gap-y-5">
         <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-y-4 w-full">
-          <h1 className="text-black h-8 text-3xl font-bold mb-8">Masukkan Kode Verifikasi Anda</h1>
+          <h1 className="text-black h-8 text-3xl font-bold mb-8">Masukkan kode verifikasi anda</h1>
           <div className="w-[75%] mx-auto text-black flex flex-col justify-center m-0">
-            <p className="text-sm px-1 text-black m-0 font-medium">Email</p>
+            <p className="text-sm px-1 text-black m-0 font-medium">Kode Verifikasi</p>
             <div className="flex flex-row gap-x-2 border border-black rounded-2xl py-2 px-4">
-              <Image src="/email.svg" alt="Email icon" width={25} height={25} />
               <input
                 id="code"
                 name="code"
@@ -67,7 +66,7 @@ export default function OTPVerification({ email }: Props) {
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
                 className="w-full bg-cream focus:outline-none"
-                placeholder="Enter your code"
+                placeholder="Masukkan kode anda"
               />
             </div>
           </div>
@@ -84,7 +83,7 @@ export default function OTPVerification({ email }: Props) {
       </div>
 
       <div id="book-image">
-        <h1 className="text-[2.5rem] font-bold text-white">Hi, <br /> Piips!</h1>
+        <h1 className="text-3xl font-bold text-white">Cek Emailmu Sekarang, <br /> Yuk!</h1>
         <Image src="/books.png" alt="Books" width={500} height={500} className="w-auto h-auto relative -left-10" />
       </div>
     </div>

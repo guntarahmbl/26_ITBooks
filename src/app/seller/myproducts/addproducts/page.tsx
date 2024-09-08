@@ -35,7 +35,7 @@ export default function AddProductForm() {
     notes: "",
     file: null,
   });
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -80,11 +80,13 @@ export default function AddProductForm() {
     requiredFields.forEach(field => {
       if (!formData[field]) {
         newErrors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} harus diisi.`;
+        setIsSubmitting(false);
       }
     });
 
     if (formData.price <= 0) {
       newErrors.price = "Harga harus lebih besar dari 0.";
+      setIsSubmitting(false);
     }
 
     setErrors(newErrors);
@@ -93,7 +95,7 @@ export default function AddProductForm() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setIsSubmitting(true)
     if (!validateForm()) return;
 
     const data = new FormData();
@@ -125,9 +127,8 @@ export default function AddProductForm() {
         body: JSON.stringify(formDataWithEmail),
       });
 
-      if (!saveRes.ok) throw new Error("Failed to save data");
+      if (!saveRes.ok) throw new Error("Gagal menambahkan produk!");
 
-      alert("Data berhasil disimpan!");
       setFormData({
         title: "",
         emailPenjual: session?.user?.email as string,
@@ -141,12 +142,14 @@ export default function AddProductForm() {
         notes: "",
         file: null,
       });
+      setIsSubmitting(false)
       setErrors({});
       router.push('/seller/myproducts');
 
     } catch (error) {
       console.error("Error:", error);
-      alert("Terjadi kesalahan saat mengunggah.");
+      alert("Gagal menambahkan produk!");
+      setIsSubmitting(false)
     }
   };
 
@@ -301,8 +304,12 @@ export default function AddProductForm() {
           {errors.file && <p className="text-red-500 text-sm">{errors.file}</p>}
         </div>
 
-        <button type="submit" className="mt-5 px-4 py-2 bg-deepBurgundy hover:scale-105 duration-200 text-white rounded-xl">
-          Submit
+        <button 
+          type="submit" 
+          className="mt-5 px-4 py-2 bg-deepBurgundy hover:scale-105 duration-200 text-white rounded-xl"
+          disabled={isSubmitting}
+          >
+          {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
       </form>
     </div>
