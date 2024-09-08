@@ -36,9 +36,9 @@ export default function AddProductForm() {
     file: null,
   });
   const LoadingSpinner = () => (
-    <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
-      <div className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin"/>
-      <p className="mt-4 text-deepBurgundy">Mohon menunggu, data anda sedang kami simpan...</p>
+    <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex flex-col justify-center items-center">
+      <div className="w-12 h-12 border-t-4 border-darkRed border-solid rounded-full animate-spin mb-2"/>
+      <p className="mt-2 text-deepBurgundy">Mohon menunggu, data anda sedang kami simpan...</p>
     </div>
   );
 
@@ -174,8 +174,6 @@ export default function AddProductForm() {
       });
 
       if (!saveRes.ok) throw new Error("Failed to save data");
-
-      alert("Data berhasil disimpan!");
       setFormData({
         title: "",
         emailPenjual: session?.user?.email as string,
@@ -235,7 +233,7 @@ export default function AddProductForm() {
           </div>
           <div className="w-[40%]">
             <p>Harga Buku</p>
-            <p className="text-sm text-gray-600">Tidak perlu menggunakan simbol atau tanda</p>
+            <p className="text-sm">Tidak perlu menggunakan simbol atau tanda</p>
             <input
               type="number"
               name="price"
