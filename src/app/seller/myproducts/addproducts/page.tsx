@@ -38,7 +38,7 @@ export default function AddProductForm() {
   const LoadingSpinner = () => (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex flex-col justify-center items-center">
       <div className="w-12 h-12 border-t-4 border-darkRed border-solid rounded-full animate-spin mb-2"/>
-      <p className="mt-2 text-deepBurgundy">Mohon menunggu, data anda sedang kami simpan...</p>
+      <p className="mt-2 text-black">Mohon menunggu, data anda sedang kami simpan...</p>
     </div>
   );
 
