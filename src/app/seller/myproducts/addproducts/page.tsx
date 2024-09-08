@@ -35,8 +35,15 @@ export default function AddProductForm() {
     notes: "",
     file: null,
   });
+  const LoadingSpinner = () => (
+    <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
+      <div className="w-16 h-16 border-t-4 border-blue-500 border-solid rounded-full animate-spin"/>
+      <p className="mt-4 text-deepBurgundy">Mohon menunggu, data anda sedang kami simpan...</p>
+    </div>
+  );
 
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -75,26 +82,67 @@ export default function AddProductForm() {
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    const requiredFields: (keyof FormData)[] = ['title', 'price', 'condition', 'author', 'edition', 'isbn', 'volume', 'description', 'file'];
-    
+    const requiredFields: (keyof FormData)[] = [
+      "title", 
+      "price", 
+      "condition", 
+      "author", 
+      "edition", 
+      "isbn", 
+      "volume", 
+      "description", 
+      "file"
+    ];
+  
     requiredFields.forEach(field => {
       if (!formData[field]) {
-        newErrors[field] = `${field.charAt(0).toUpperCase() + field.slice(1)} harus diisi.`;
+        switch (field) {
+          case "title":
+            newErrors[field] = "Judul buku harus diisi.";
+            break;
+          case "price":
+            newErrors[field] = "Harga buku harus diisi dan lebih dari 0.";
+            break;
+          case "condition":
+            newErrors[field] = "Kondisi buku harus diisi.";
+            break;
+          case "author":
+            newErrors[field] = "Nama penulis buku harus diisi.";
+            break;
+          case "edition":
+            newErrors[field] = "Edisi buku harus diisi.";
+            break;
+          case "isbn":
+            newErrors[field] = "ISBN buku harus diisi.";
+            break;
+          case "volume":
+            newErrors[field] = "Jilid buku harus diisi.";
+            break;
+          case "description":
+            newErrors[field] = "Deskripsi buku harus diisi.";
+            break;
+          case "file":
+            newErrors[field] = "Gambar buku harus diunggah.";
+            break;
+          default:
+            newErrors[field] = `${field} harus diisi.`;
+        }
       }
     });
-
+  
     if (formData.price <= 0) {
-      newErrors.price = "Harga harus lebih besar dari 0.";
+      newErrors.price = "Harga buku harus lebih besar dari 0.";
     }
-
+  
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!validateForm()) return;
+
+    setLoading(true);
 
     const data = new FormData();
     if (formData.file) {
@@ -147,11 +195,15 @@ export default function AddProductForm() {
     } catch (error) {
       console.error("Error:", error);
       alert("Terjadi kesalahan saat mengunggah.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="flex flex-col w-full items-center">
+      {loading && <LoadingSpinner />}
+
       <div id="header" className="flex flex-row items-center justify-between h-20 w-[90%]">
         <h1 className="font-bold text-[2.5rem] text-white">Tambahkan Produk</h1>
         <Link href="/seller/myproducts" className="w-50 h-50 hover:scale-105">
@@ -161,7 +213,7 @@ export default function AddProductForm() {
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-y-5 items-center w-[90%] rounded-3xl min-h-screen bg-white text-deepBurgundy p-10 mx-auto"
+        className={`flex flex-col gap-y-5 items-center w-[90%] rounded-3xl min-h-screen bg-white text-deepBurgundy p-10 mx-auto ${loading ? 'pointer-events-none opacity-50' : ''}`}
       >
         <h1 className="font-bold text-xl">Spesifikasi Produk</h1>
         <p className="text-lg -mt-3">Masukkan detail produk yang ingin anda unggah di sini.</p>
@@ -169,7 +221,7 @@ export default function AddProductForm() {
 
         <div className="flex flex-row w-full justify-between">
           <div className="w-[40%]">
-            <p>Judul Buku</p>
+            <p>Judul Buku*</p>
             <input
               type="text"
               name="title"
@@ -183,6 +235,7 @@ export default function AddProductForm() {
           </div>
           <div className="w-[40%]">
             <p>Harga Buku</p>
+            <p className="text-sm text-gray-600">Tidak perlu menggunakan simbol atau tanda</p>
             <input
               type="number"
               name="price"
@@ -301,7 +354,7 @@ export default function AddProductForm() {
           {errors.file && <p className="text-red-500 text-sm">{errors.file}</p>}
         </div>
 
-        <button type="submit" className="mt-5 px-4 py-2 bg-deepBurgundy hover:scale-105 duration-200 text-white rounded-xl">
+        <button type="submit" className="mt-5 px-4 py-2 bg-deepBurgundy hover:scale-105 duration-200 text-white rounded-xl" disabled={loading}>
           Submit
         </button>
       </form>
