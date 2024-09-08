@@ -26,7 +26,7 @@ export default function MyProducts({books}: SearchProps){
 
             <div id="container" className="w-[95%] min-h-screen rounded-3xl bg-gradient-to-bl from-cream p-6">
                 <div id="label" className="flex h-10">
-                    <h2 className="w-[35%]">Produk</h2>
+                    <h2 className="w-[35%] flex justify-center relative right-28">Produk</h2>
                     <h2 className="w-[15%]">Kuantitas</h2>
                     <h2 className="w-[23%]">Harga</h2>
                     <h2 className="w-[23%]">Total harga</h2>
