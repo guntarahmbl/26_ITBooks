@@ -40,7 +40,7 @@ export default function SignIn() {
       </div>
 
       <div id="book-image">
-        <h1 className="text-[2.5rem] font-bold text-white">Hi, <br /> Piips!</h1>
+        <h1 className="text-animation text-white"></h1>
         <Image src="/books.png" alt="Books" width={500} height={500} className="w-auto h-auto relative -left-10" />
       </div>
     </div>
