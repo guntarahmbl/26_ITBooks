@@ -26,8 +26,8 @@ export default function List({ idBuku, name, price, type }: { idBuku: number, na
                 throw new Error('Failed to delete');
             }
 
-            alert('Item deleted successfully');
             router.refresh();
+            alert('Item deleted successfully'); 
 
         } catch (error) {
             console.error('Error:', error);
