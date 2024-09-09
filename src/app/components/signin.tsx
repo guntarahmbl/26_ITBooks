@@ -2,6 +2,7 @@
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
+import { Typewriter } from "react-simple-typewriter";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -40,7 +41,14 @@ export default function SignIn() {
       </div>
 
       <div id="book-image">
-        <h1 className="text-animation text-white"></h1>
+        <h1 className="text-[2.5rem] font-bold text-white">
+          <Typewriter
+          words={['Hi Piips!', 'Hi Bung!', 'Hi Nona!', 'Selamat datang di ITBooks!', 'Mau beli buku apa hari ini?']}
+          loop = {0}
+          cursor
+          cursorBlinking
+          />
+        </h1>
         <Image src="/books.png" alt="Books" width={500} height={500} className="w-auto h-auto relative -left-10" />
       </div>
     </div>
