@@ -1,4 +1,4 @@
-import Details from "./Details"; // Adjust the import path as necessary
+import Details from "./Details";
 import { db } from "../../../../../../lib/prisma";
 import { Book } from "../../../../../../lib/type";
 import { getServerSession } from "next-auth";
@@ -18,19 +18,17 @@ export default async function Home({ params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
   
   if (!session?.user?.email) {
-    // Handle the case where the session or email is not available
     return <div>Unauthorized</div>;
   }
 
   const book = await getBooks(idBuku);
 
-  // Handle the case where the book might not be found
   if (!book) {
     return <div>Book not found</div>;
   }
 
   return (
-    <div>
+    <div className="bg-white">
       <Details book={book} />
     </div>
   );

@@ -5,6 +5,8 @@ import Navbar from '@/app/components/NavBar/Navbar';
 import { authOptions } from '../../../../lib/authOptions';
 import { redirect } from 'next/navigation';
 import { Book } from '../../../../lib/type';
+import { Suspense } from 'react'
+
 async function getBooks() {
     const books = await db.catalogue.findMany()
     return books;
@@ -20,7 +22,9 @@ export default async function Home() {
     return(
         <>
             <Navbar />
-            <Search books = {books}/>   
+            <Suspense>
+                <Search books = {books}/>   
+            </Suspense>
         </>
     )
 }

@@ -16,33 +16,11 @@ export default function Details({ book }: DetailsProps) {
   if (!session){
     redirect('/')
   }
-  const handleClick = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
 
-    try {
-      const saveRes = await fetch("/api/add-cart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          idBuku: book.idBuku,
-          emailPembeli: session?.user?.email,
-        }),
-      });
-
-      if (!saveRes.ok) throw new Error("Failed to save data");
-
-      alert("Produk berhasil ditambahkan ke keranjang!");
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Produk sudah di dalam keranjang!");
-    }
-  };
 
   return (
     <div id="container" className="text-deepBurgundy px-16 py-10 relative">
-      <Link href="/buyer/catalog" className="absolute right-32 hover:scale-105 duration-200">
+      <Link href="../" className="absolute right-32 hover:scale-105 duration-200">
         <Image src="/home.svg" width={50} height={50} alt="" />
       </Link>
 
@@ -64,17 +42,6 @@ export default function Details({ book }: DetailsProps) {
               <option value="ITB Jatinangor">ITB Jatinangor</option>
               <option value="COD">COD</option>
             </select>
-          </div>
-          <div id="buttons" className="flex gap-x-5">
-            <button
-              className="bg-deepBurgundy text-white p-3 rounded-lg w-60 hover:scale-105 transition-all duration-300"
-              onClick={handleClick}
-            >
-              Masukkan Keranjang
-            </button>
-            <button className="bg-deepBurgundy text-white p-3 rounded-lg w-60 hover:scale-105 transition-all duration-300">
-              Beli sekarang
-            </button>
           </div>
         </div>
       </div>
