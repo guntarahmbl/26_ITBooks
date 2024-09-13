@@ -16,6 +16,9 @@ export async function POST(req: Request) {
       description,
       notes,
       imageUrl,
+      contact,
+      norek,
+      bank
     } = body;
 
     const newCatalogue = await db.catalogue.create({
@@ -31,6 +34,9 @@ export async function POST(req: Request) {
         description,
         notes,
         imageUrl,
+        contact,
+        norek,
+        bank
       },
     });
 

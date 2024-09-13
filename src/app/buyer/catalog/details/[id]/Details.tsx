@@ -117,6 +117,18 @@ export default function Details({ book }: DetailsProps) {
           <p className="font-bold">Catatan Tambahan:</p>
           <p>{book.notes}</p>
         </div>
+        <div id="Kontak">
+          <p className="font-bold">Kontak:</p>
+          <p>{book.contact}</p>
+        </div>
+        <div id="Nomor Rekening">
+          <p className="font-bold">Nomor Rekening:</p>
+          <p>{book.norek}</p>
+        </div>
+        <div id="Jenis Bank">
+          <p className="font-bold">Jenis Bank:</p>
+          <p>{book.bank}</p>
+        </div>
       </div>
     </div>
   );

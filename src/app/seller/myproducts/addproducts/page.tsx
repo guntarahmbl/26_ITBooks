@@ -16,12 +16,18 @@ interface FormData {
   volume: string;
   description: string;
   notes: string;
+  contact: string;
   file: File | null;
+  norek: string;
+  bank: string;
 }
 
 export default function AddProductForm() {
   const { data: session } = useSession();
   const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     title: "",
     emailPenjual: session?.user?.email || "",
@@ -33,17 +39,32 @@ export default function AddProductForm() {
     volume: "",
     description: "",
     notes: "",
+    contact:"",
     file: null,
+    norek: "",
+    bank: "",
   });
+  const banks = [
+    "Bank Mandiri",
+    "Bank Rakyat Indonesia (BRI)",
+    "Bank Central Asia (BCA)",
+    "Bank Negara Indonesia (BNI)",
+    "Bank BTN",
+    "Bank CIMB Niaga",
+    "Bank Danamon",
+    "Bank Syariah Indonesia",
+    "Bank Permata",
+    "Bank Panin",
+    "Bank Jago"
+  ];
+  
   const LoadingSpinner = () => (
     <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex flex-col justify-center items-center">
       <div className="w-12 h-12 border-t-4 border-darkRed border-solid rounded-full animate-spin mb-2"/>
       <p className="mt-2 text-black">Mohon menunggu, data anda sedang kami simpan...</p>
     </div>
   );
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  const [loading, setLoading] = useState(false);
+
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -56,7 +77,7 @@ export default function AddProductForm() {
     return null;
   }
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prevData => ({
       ...prevData,
@@ -91,7 +112,8 @@ export default function AddProductForm() {
       "isbn", 
       "volume", 
       "description", 
-      "file"
+      "file",
+      "contact"
     ];
   
     requiredFields.forEach(field => {
@@ -101,7 +123,7 @@ export default function AddProductForm() {
             newErrors[field] = "Judul buku harus diisi.";
             break;
           case "price":
-            newErrors[field] = "Harga buku harus diisi dan lebih dari 0.";
+            newErrors[field] = "Harga buku harus diisi dan lebih dari sama dengan 0.";
             break;
           case "condition":
             newErrors[field] = "Kondisi buku harus diisi.";
@@ -121,6 +143,9 @@ export default function AddProductForm() {
           case "description":
             newErrors[field] = "Deskripsi buku harus diisi.";
             break;
+          case "contact":
+            newErrors[field] = "Kontak harus diisi.";
+            break;
           case "file":
             newErrors[field] = "Gambar buku harus diunggah.";
             break;
@@ -131,7 +156,7 @@ export default function AddProductForm() {
       }
     });
   
-    if (formData.price <= 0) {
+    if (formData.price < 0) {
       newErrors.price = "Harga harus lebih besar dari 0.";
       setIsSubmitting(false);
     }
@@ -139,11 +164,12 @@ export default function AddProductForm() {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true)
+    
     if (!validateForm()) return;
-
+    setIsSubmitting(true)
     setLoading(true);
 
     const data = new FormData();
@@ -188,11 +214,15 @@ export default function AddProductForm() {
         volume: "",
         description: "",
         notes: "",
+        contact:"",
         file: null,
+        norek:"",
+        bank:"",
       });
       setIsSubmitting(false)
       setErrors({});
       router.push('/seller/myproducts');
+      router.refresh();
 
     } catch (error) {
       console.error("Error:", error);
@@ -237,7 +267,7 @@ export default function AddProductForm() {
             {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
           </div>
           <div className="w-[40%]">
-            <p>Harga Buku</p>
+            <p>Harga Buku*</p>
             <p className="text-sm">Tidak perlu menggunakan simbol atau tanda</p>
             <input
               type="number"
@@ -280,6 +310,7 @@ export default function AddProductForm() {
             />
             {errors.author && <p className="text-red-500 text-sm">{errors.author}</p>}
           </div>
+
           <div className="w-full">
             <p>Edisi Buku*</p>
             <input
@@ -293,6 +324,7 @@ export default function AddProductForm() {
             />
             {errors.edition && <p className="text-red-500 text-sm">{errors.edition}</p>}
           </div>
+
           <div className="w-full">
             <p>ISBN Buku*</p>
             <input
@@ -306,6 +338,7 @@ export default function AddProductForm() {
             />
             {errors.isbn && <p className="text-red-500 text-sm">{errors.isbn}</p>}
           </div>
+
           <div className="w-full">
             <p>Jilid Buku*</p>
             <input
@@ -344,6 +377,45 @@ export default function AddProductForm() {
             placeholder="Jelaskan informasi tambahan buku yang ingin anda jual"
             rows={4}
           />
+        </div>
+
+        <div className="w-full">
+          <p>Kontak*</p>
+          <textarea
+            name="contact"
+            value={formData.contact}
+            onChange={handleChange}
+            className={`border rounded-xl w-full px-5 py-2 ${errors.contact ? 'border-red-500' : 'border-black'}`}
+            placeholder="Instagram: @exampleacc or Line: @exampleid"
+            rows={1}
+          />
+        </div>
+
+        <div className="w-full">
+          <p>Nomor Rekening</p>
+          <textarea
+            name="norek"
+            value={formData.norek}
+            onChange={handleChange}
+            className={`border rounded-xl w-full px-5 py-2 ${errors.norek ? 'border-red-500' : 'border-black'}`}
+            placeholder="Masukkan nomor rekening anda"
+            rows={1}
+          />
+        </div>
+        
+        <div className="w-full my-5">
+          <h1>Jenis Bank</h1>
+          <select 
+            name="bank" 
+            id="" 
+            className={`border rounded-xl w-full px-5 py-2 ${errors.bank ? 'border-red-500' : 'border-black'}`}
+            onChange={handleChange}
+            value={formData.bank || ""}
+          >
+            {banks.map((bank) => (
+                <option key={bank} value={`${bank}`}>{`${bank}`}</option>
+            ))}
+          </select>
         </div>
 
         <div className="w-full">

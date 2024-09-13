@@ -96,8 +96,11 @@ model Catalogue {
   isbn          String  @default("Unknown ISBN")
   volume        String  @default("Unknown Volume")
   description   String  @default("No Description")
-  notes         String?
+  notes         String? @default("No Notes")
+  contact       String  @default("No Contact")
   imageUrl      String  @default("No Image URL")
+  norek         String? @default("No nomor rekening")
+  bank          String? @default("No Bank")
 }
 
 model Cart {
