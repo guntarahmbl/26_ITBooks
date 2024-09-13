@@ -83,7 +83,7 @@ export default function OTPVerification({ email }: Props) {
       </div>
 
       <div id="book-image">
-        <h1 className="text-3xl font-bold text-white">Cek Emailmu Sekarang, <br /> Yuk!</h1>
+        <h1 className="text-3xl font-bold text-white">Cek Emailmu, <br /> Yuk!</h1>
         <Image src="/books.png" alt="Books" width={500} height={500} className="w-auto h-auto relative -left-10" />
       </div>
     </div>
