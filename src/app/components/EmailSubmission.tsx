@@ -64,8 +64,8 @@ export default function EmailSubmission({ onSubmit }: Props) {
 
       </div>
 
-      <div id="book-image">
-        <h1 className="text-[2.5rem] font-bold text-white">
+      <div id="book-image" className="w-96 flex flex-col">
+        <h1 className="text-[2.5rem] font-bold text-white w-full h-20">
           <Typewriter
           words={['Hi Piips!', 'Hi Bung!', 'Hi Nona!', 'Selamat datang di ITBooks!', 'Mau beli buku apa hari ini?']}
           loop = {0}
@@ -73,7 +73,7 @@ export default function EmailSubmission({ onSubmit }: Props) {
           cursorBlinking
           />
         </h1>
-        <Image src="/books.png" alt="Books" width={500} height={500} className="w-auto h-auto relative -left-10" />
+        <Image src="/books.png" alt="Books" width={500} height={500} className="w-auto h-auto" />
       </div>
     </div>
   );
