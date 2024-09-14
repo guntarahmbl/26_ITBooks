@@ -43,7 +43,8 @@ export default function SignIn() {
       <div id="book-image">
         <h1 className="text-[2.5rem] font-bold text-white">
           <Typewriter
-          words={['Hi', 'Piips!', 'Hi', 'Bung!', 'Hi', 'Nona!', 'Selamat datang di ITBooks!', 'Mau beli buku apa hari ini?']}
+          words={['Hi', 'Pips!', 'Hi', 'Bung!', 'Hi', 'Nona!', 'Selamat datang di ITBooks!', 'Mau beli buku apa hari ini?']}
+          delaySpeed={500}
           loop = {0}
           cursor
           cursorBlinking

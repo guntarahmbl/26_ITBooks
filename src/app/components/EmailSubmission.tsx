@@ -67,7 +67,8 @@ export default function EmailSubmission({ onSubmit }: Props) {
       <div id="book-image" className="w-96 flex flex-col">
         <h1 className="text-[2.5rem] font-bold text-white w-full h-20">
           <Typewriter
-          words={['Hi', 'Piips!', 'Hi', 'Bung!', 'Hi', 'Nona!', 'Selamat datang di ITBooks!', 'Mau beli buku apa hari ini?']}
+          words={['Hi', 'Pips!', 'Hi', 'Bung!', 'Hi', 'Nona!', 'Selamat datang di ITBooks!', 'Mau beli buku apa hari ini?']}
+          delaySpeed={500}
           loop = {0}
           cursor
           cursorBlinking
