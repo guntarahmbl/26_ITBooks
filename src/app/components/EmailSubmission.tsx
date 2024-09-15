@@ -34,8 +34,8 @@ export default function EmailSubmission({ onSubmit }: Props) {
   };
 
   return (
-    <div className="w-full h-full flex items-center justify-between my-auto">
-      <div id="white-box" className="w-[50%] h-[80%] bg-cream rounded-xl flex flex-col justify-center items-center gap-y-5">
+    <div className="w-full h-full flex items-center sm:justify-between justify-center my-auto flex-col-reverse gap-y-9 sm:flex-row">
+      <div id="white-box" className="sm:w-[50%] sm:h-[80%] w-[70%] h-[40%] bg-cream rounded-xl flex flex-col justify-center items-center gap-y-5">
         <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center gap-y-4 w-full">
           <h1 className="text-black h-8 text-[2.5rem] font-bold mb-8">Masuk</h1>
           <div className="w-[75%] mx-auto text-black flex flex-col justify-center m-0">
@@ -46,13 +46,13 @@ export default function EmailSubmission({ onSubmit }: Props) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-cream focus:outline-none"
+                className="w-full truncate bg-cream focus:outline-none"
                 placeholder="example@mahasiswa.itb.ac.id"
               />
             </div>
           </div>
 
-          <div id="button" className="w-[30%] h-10 rounded-lg mx-auto hover:scale-105 text-white from-deepBurgundy to-black bg-gradient-to-b flex justify-center mt-8">
+          <div id="button" className="sm:w-[30%] w-[50%] h-10 rounded-lg mx-auto hover:scale-105 text-white from-deepBurgundy to-black bg-gradient-to-b flex justify-center mt-8">
             <button 
                 type="submit" 
                 className="w-full h-full mx-auto my-auto font-medium "
@@ -64,17 +64,17 @@ export default function EmailSubmission({ onSubmit }: Props) {
 
       </div>
 
-      <div id="book-image" className="w-96 flex flex-col">
-        <h1 className="text-[2.5rem] font-bold text-white w-full h-20">
+      <div id="book-image" className="sm:w-96 w-[80%] flex flex-col">
+        <h1 className="sm:text-[2.5rem] text-2xl font-bold text-white w-full sm:h-20 h-10">
           <Typewriter
-          words={['Hi', 'Pips!', 'Hi', 'Bung!', 'Hi', 'Nona!', 'Selamat datang di ITBooks!', 'Mau beli buku apa hari ini?']}
+          words={['Hi, Pips!', 'Hi, Bung!', 'Hi, Nona!', 'Selamat datang di ITBooks!', 'Mau beli buku apa hari ini?']}
           delaySpeed={500}
           loop = {0}
           cursor
           cursorBlinking
           />
         </h1>
-        <Image src="/books.png" alt="Books" width={500} height={500} className="w-auto h-auto" />
+        <Image src="/books.png" alt="Books" width={500} height={500} className="w-auto h-auto hidden sm:block" />
       </div>
     </div>
   );
